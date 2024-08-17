@@ -1,5 +1,5 @@
 import { useState } from "react"
-
+import loginimage from "../assets/images/login.png";
 export default function Login() {
   const [user, setUser] = useState({
     email: "",
@@ -27,7 +27,7 @@ export default function Login() {
           <div className="section-registration">
             <div className="container grid grid-two-cols">
               <div className="registration-image">
-                <img src="../assets/images/login.png" alt="registration" width="500" height="500" />
+                <img src={loginimage} alt="login" width="500" height="500" />
               </div>
 
               {/* let tackle registration form */}

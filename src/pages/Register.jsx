@@ -1,5 +1,5 @@
 import { useState } from "react"
-
+import registerimage from "../assets/images/register.png";
 export default function Register() {
 
   const [user, setUser] = useState({
@@ -35,7 +35,7 @@ export default function Register() {
           <div className="section-registration">
             <div className="container grid grid-two-cols">
               <div className="registration-image">
-                <img src="../assets/images/register.png" alt="registration" width="500" height="500" />
+                <img src={registerimage} alt="registration" width="500" height="500" />
               </div>
 
               {/* let tackle registration form */}

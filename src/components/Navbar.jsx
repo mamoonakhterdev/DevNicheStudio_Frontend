@@ -1,13 +1,13 @@
-import { NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom";
 import './Navbar.css';
-export const Navbar = () => {
-    return <>
+
+export const Navbar = ({ company_name }) => {
+    return (
         <header>
             <div className="container">
                 <div className="logo-brand">
-                    <NavLink to="/">SandhuTech</NavLink>
+                    <NavLink to="/">{company_name}</NavLink>
                 </div>
-
                 <nav>
                     <ul>
                         <li><NavLink to="/">Home</NavLink></li>
@@ -20,5 +20,5 @@ export const Navbar = () => {
                 </nav>
             </div>
         </header>
-    </>
-}
+    );
+};
