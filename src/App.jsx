@@ -6,11 +6,14 @@ import Register from "./pages/Register";
 import Service from "./pages/Service";
 import Contact from "./pages/Contact";
 import PageNotFound from "./pages/PageNotFound";
+import { Navbar } from "./components/Navbar";
 const App = ()=>{
   return (
     <>
       <BrowserRouter>
+        <Navbar />
         <Routes>
+          
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
