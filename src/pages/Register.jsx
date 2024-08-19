@@ -1,5 +1,7 @@
 import { useState } from "react"
 import registerimage from "../assets/images/register.png";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../store/auth";
 export default function Register() {
 
   const [user, setUser] = useState({
@@ -8,8 +10,8 @@ export default function Register() {
     phone: "",
     password: "",
   });
-
-   
+  const navigate = useNavigate();
+   const {storeTokenInLS} = useAuth();
   // handling the input values
   const handleInput = (e)=>{
     let name = e.target.name;
@@ -23,9 +25,39 @@ export default function Register() {
 
   //handling the form submission
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(user);
+
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+  
+      console.log("Success Response: ",response);
+
+      if(response.ok){
+        const res_data = await response.json();
+        console.log("Response from server: ", res_data);
+        // stored the token in localhost
+        storeTokenInLS(res_data.token);
+        setUser({
+          username: "",
+          email: "",
+          phone: "",
+          password: "",
+        })
+        navigate('/login');
+      }
+
+    } catch (error) {
+      console.log("Register: ",error);
+    }
+   
   }
 
   return (
