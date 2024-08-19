@@ -1,8 +1,20 @@
+import { useState } from "react";
 import about_image from "../assets/images/about.png";
 import { Analytics } from "../components/Analytics";
+import { useAuth } from "../store/auth";
 
 const About = ({ company_name }) => {
-  
+  const {user} = useAuth();
+  const [name, setName] = useState('');
+  const [userData, setUserData] = useState(true);
+  if(user && userData){
+    setName(user.username);
+    setUserData(false);
+    console.log("Hi")
+  }
+  else{
+    console.log("Mamoon")
+  }
   return (
     <>
       <main>
@@ -10,7 +22,7 @@ const About = ({ company_name }) => {
         <section className="section-hero">
           <div className="container grid grid-two-cols">
             <div className="hero-content">
-              <p>Welcome to {company_name}</p>
+              <p>Hi {name}</p>
               <h1>Why Choose Us</h1>
               <p>
                 At {company_name}, we are dedicated to delivering top-notch IT solutions that drive business success. Our team of experts leverages the latest technology and industry best practices to provide you with cutting-edge solutions.

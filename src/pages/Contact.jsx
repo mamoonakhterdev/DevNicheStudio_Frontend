@@ -1,6 +1,6 @@
 import { useState } from "react";
 import contactimage from "../assets/images/support.png";
-
+import { useAuth } from "../store/auth";
 
 export default function Contact() {
   const [contact, setContact] = useState({
@@ -8,7 +8,19 @@ export default function Contact() {
     email: "",
     message: "",
   })
+  const {user} = useAuth();
 
+  const [userData, setUserData] = useState(true);
+
+  if(userData && user){
+    setContact({
+      username: user.username,
+      email: user.email,
+      message: "",
+    });
+
+    setUserData(false);
+  }
   const handleInput = (e)=>{
     const name = e.target.name;
     const value = e.target.value;
