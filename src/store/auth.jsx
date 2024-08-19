@@ -1,13 +1,25 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
 export const AuthContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 export const AuthProvider = ({children}) => {
+
+    const [token, setToken] = useState(localStorage.getItem('token'));
+
     const storeTokenInLS = (serverToken) => {
         return localStorage.setItem('token', serverToken);
     }
-    return <AuthContext.Provider value={storeTokenInLS}>
+
+    let isLoggedIn = !!token;
+
+    //Tackling the logout functionality
+    const LogoutUser = () => {
+        setToken("");
+        return localStorage.removeItem('token');
+    };
+
+    return <AuthContext.Provider value={{storeTokenInLS, LogoutUser, isLoggedIn}}>
         {children}
     </AuthContext.Provider>
 }
