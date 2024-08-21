@@ -1,4 +1,4 @@
-import { FaHome, FaRegListAlt, FaUser } from "react-icons/fa";
+import { FaHome, FaUser } from "react-icons/fa";
 import { FaMessage } from "react-icons/fa6";
 import { Navigate, NavLink, Outlet } from "react-router-dom";
 import {useAuth} from "../../store/auth";
@@ -15,7 +15,7 @@ export const AdminLayout = () => {
   return (
     <>
       <header>
-        <div className="container">
+        <div className="admin-layout">
           <nav>
             <ul>
               <li>
@@ -28,11 +28,11 @@ export const AdminLayout = () => {
                   <FaMessage /> Contacts
                 </NavLink>
               </li>
-              <li>
+              {/* <li>
                 <NavLink to="/service">
                   <FaRegListAlt /> Services
                 </NavLink>
-              </li>
+              </li> */}
               <li>
                 <NavLink to="/">
                   <FaHome /> Home

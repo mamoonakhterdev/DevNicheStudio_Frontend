@@ -9,12 +9,11 @@ import { Navbar } from "./components/Navbar";
 import Footer from "./components/Footer";
 import { PageNotFound } from "./pages/PageNotFound";
 import {Logout} from "./pages/Logout";
-import {AdminLayout} from "./components/layouts/Admin-Layout";
 import {AdminContacts} from "./pages/Admin-Contacts";
 import {AdminUsers} from "./pages/Admin-Users";
 import { AdminUpdate } from "./pages/Admin-Update";
 const App = ()=>{
-  const company_name = "Sandhu Tech";
+  const company_name = "DevNiche Studio";
   return (
     <>
       <BrowserRouter>
@@ -30,7 +29,7 @@ const App = ()=>{
           <Route path="*" element={<PageNotFound />} />
 
           {/* Nested Route and Admin Route */}
-          <Route path="/admin" element={<AdminLayout />}>
+          <Route path="/admin">
             <Route index element={<Navigate to="users" />} />
             <Route path="users" element={<AdminUsers />} />
             <Route path="contacts" element={<AdminContacts />} />

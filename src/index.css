@@ -24,6 +24,7 @@ body {
 }
 
 
+
  h1 {
   font-size: 5.4rem;
   line-height: 1.1;
@@ -81,6 +82,10 @@ li {
   max-width: 140rem;
   padding: 4rem 2.4rem;
   margin: 0 auto;
+}
+.admin-layout{
+  display: flex;
+  justify-content: flex-end;
 }
 
 .grid {
@@ -547,31 +552,39 @@ tbody tr:last-child td {
   border-bottom: none;
 }
 
-td:nth-last-child(2) {
+td:last-child .info {
   text-align: left;
   cursor: pointer;
-  color: #007bff;
-  text-decoration: underline;
+  background-color: #4d62ff; /* Background color for Delete button */
+  color: #fff; /* Text color */
+  padding: 0.5rem;
+  font-size: 0.9vw;
+  border-radius: 0.25rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  margin-right: 0.1vw;
+}
+td:last-child .info:hover {
+  background-color: #0045e6;
 }
 
-td:nth-last-child(2):hover {
-  color: #0056b3;
-}
-
-td:last-child button {
+td:last-child .danger {
   text-align: left;
   cursor: pointer;
   background-color: #ff4d4d; /* Background color for Delete button */
   color: #fff; /* Text color */
   padding: 0.5rem;
+  font-size: 0.9vw;
   border-radius: 0.25rem;
   text-transform: uppercase;
   font-weight: bold;
   transition: background-color 0.3s ease;
 }
 
-td:last-child button:hover {
+td:last-child .danger:hover {
   background-color: #e60000;
+
 }
 
 @media (max-width: 768px) {
@@ -666,5 +679,5 @@ td:last-child button:hover {
 }
 
 .setHeight{
-  margin-bottom: 5vw;
+  margin-bottom: 10vw;
 }

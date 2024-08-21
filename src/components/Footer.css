@@ -6,9 +6,9 @@
   background-color: var(--btn-color);
   margin: 0;
   user-select: none;
-  position: absolute; /* Changed from fixed to relative */
   width: 100%; /* Ensures the footer spans the full width */
   text-align: center;
+  position: relative;
   
 }
 
