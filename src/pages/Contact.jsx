@@ -10,10 +10,8 @@ const defaultContactFormData = {
 }
 export default function Contact() {
   const [contact, setContact] = useState(defaultContactFormData)
-  const {user} = useAuth();
-  
+  const {user, API, token} = useAuth();
   const [userData, setUserData] = useState(true);
-
   if(userData && user){
     setContact({
       username: user.username,
@@ -40,8 +38,13 @@ export default function Contact() {
 
   const handleSubmit = async (e)=>{
     e.preventDefault();
+    if (!token) {
+      toast.error("You must be logged in to send a message.");
+      return;
+    }
+    
     try {
-      const response = await fetch('http://localhost:5000/api/form/contact', {
+      const response = await fetch(`${API}/api/form/contact`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -51,13 +54,13 @@ export default function Contact() {
 
       if(response.ok){
         setContact(defaultContactFormData);
-        const data = await response.json();
-        console.log(data);
         toast.success('Message sent successfully');
+      }else{
+        toast.error("Message not sent")
       }
 
     } catch (error) {
-      toast.error('Message not sent', error);
+      toast.error('Internal Error! ', error);
     }
   }
   return (

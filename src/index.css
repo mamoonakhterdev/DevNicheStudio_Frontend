@@ -20,6 +20,7 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 
@@ -562,7 +563,7 @@ td:last-child button {
   cursor: pointer;
   background-color: #ff4d4d; /* Background color for Delete button */
   color: #fff; /* Text color */
-  padding: 0.75rem;
+  padding: 0.5rem;
   border-radius: 0.25rem;
   text-transform: uppercase;
   font-weight: bold;
@@ -651,4 +652,15 @@ td:last-child button:hover {
       }
     }
   }
+}
+
+
+/* When loading bar appear */
+.loading-spin{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  height: 40vw;
+  text-align: center;
 }

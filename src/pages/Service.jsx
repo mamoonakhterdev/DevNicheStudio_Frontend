@@ -1,9 +1,24 @@
 import { useAuth } from "../store/auth";
 import serviceDesign from "../assets/images/design.png";
+import { BallTriangle } from "react-loader-spinner";
 export default function Service() {
-  const { services } = useAuth();
-  
-  console.log('service.jsx: ',services);
+  const { services, isLoading } = useAuth();
+  if(isLoading){
+    return (
+          <div className="loading-spin">
+            <BallTriangle 
+              height={100}
+              width={100}
+              radius={5}
+              color="#4fa94d"
+              ariaLabel="ball-triangle-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+            /> 
+          </div>
+    )
+  }
   return (
     <section className="section-services">
       <div className="container">
@@ -11,24 +26,23 @@ export default function Service() {
       </div>
 
       <div className="container grid grid-three-cols">
-        {services.map((value, index) => (
-      
-          // eslint-disable-next-line react/jsx-key
-          <div className="card" key={index}>
-            <div className="card-img">
-              <img src={serviceDesign} alt="our services info" width="200" />
-            </div>
-
-            <div className="card-details">
-              <div className="grid grid-two-cols">
-                <p>{value.provider}</p>
-                <p>{value.price}</p>
+        {(
+          services.map((value, index) => (
+            <div className="card" key={index}>
+              <div className="card-img">
+                <img src={serviceDesign} alt="our services info" width="200" />
               </div>
-              <h2>{value.service}</h2>
-              <p>{value.description}</p>
+              <div className="card-details">
+                <div className="grid grid-two-cols">
+                  <p>{value.provider}</p>
+                  <p>{value.price}</p>
+                </div>
+                <h2>{value.service}</h2>
+                <p>{value.description}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </section>
   );

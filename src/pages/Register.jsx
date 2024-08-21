@@ -12,7 +12,7 @@ export default function Register() {
     password: "",
   });
   const navigate = useNavigate();
-   const {storeTokenInLS} = useAuth();
+   const {storeTokenInLS, API} = useAuth();
   // handling the input values
   const handleInput = (e)=>{
     let name = e.target.name;
@@ -28,10 +28,9 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(user);
 
     try {
-      const response = await fetch('http://localhost:5000/api/auth/register', {
+      const response = await fetch(`${API}/api/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': "application/json",

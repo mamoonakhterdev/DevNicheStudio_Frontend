@@ -11,7 +11,6 @@ const About = ({ company_name }) => {
   if(user && userData){
     setName(user.username);
     setUserData(false);
-    console.log("Hi")
   }
   return (
     <>

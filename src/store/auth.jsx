@@ -2,12 +2,13 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 export const AuthContext = createContext();
-
 // eslint-disable-next-line react/prop-types
 export const AuthProvider = ({children}) => {
-
+    const API = "http://localhost:5000";
+    
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [user, setUser] = useState("");
+    const [isLoading, setIsLoading] = useState(true);
     const [services, setServices] = useState([]);
     const authorizationToken = `Bearer ${token}`;
     const storeTokenInLS = (serverToken) => {
@@ -24,7 +25,8 @@ export const AuthProvider = ({children}) => {
     // JWT Authentication - to get the currently loggedIn user data
     const userAuthentication = async ()=>{
         try {
-            const response = await fetch('http://localhost:5000/api/auth/user', {
+            setIsLoading(true);
+            const response = await fetch(`${API}/api/auth/user`, {
                 method: "GET",
                 headers: {
                     Authorization: authorizationToken,
@@ -33,19 +35,20 @@ export const AuthProvider = ({children}) => {
             if(response.ok){
                 const data =  await response.json();
                 setUser(data.userData);
+                setIsLoading(false);
             }
             else{
-                toast.error("User not login");
+                setIsLoading(false);
             }
         } catch (error) {
-            toast.error("Error fetching the user data: ", error)
+            toast.error("Error fetching the user data: ", error);
         }
     }
 
     // to fetch the services data from database
     const getServices = async ()=>{
         try {
-            const response = await fetch('http://localhost:5000/api/data/service', {
+            const response = await fetch(`${API}/api/data/service`, {
                 method: "GET",
             })
             if(response.ok){
@@ -59,12 +62,12 @@ export const AuthProvider = ({children}) => {
 
     useEffect(() => {
         getServices();
-      userAuthentication();
+        userAuthentication();
     },[])
     
 
 
-    return <AuthContext.Provider value={{storeTokenInLS, LogoutUser, isLoggedIn, user, services, authorizationToken}}>
+    return <AuthContext.Provider value={{storeTokenInLS, LogoutUser, isLoggedIn, user, services, authorizationToken, isLoading, API, token}}>
         {children}
     </AuthContext.Provider>
 }

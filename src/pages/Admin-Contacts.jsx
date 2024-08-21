@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useAuth } from "../store/auth";
-export const AminContacts = () => {
+export const AdminContacts = () => {
   const [users, setUsers] = useState([]);
-  const { authorizationToken } = useAuth();
+  const [contact, setContact] = useState(0);
+  const { authorizationToken, API } = useAuth();
   
   const getAllUsersData = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/admin/contacts", {
+      const response = await fetch(`${API}/api/admin/contacts`, {
         method: "GET",
         headers: {
           Authorization: authorizationToken,
@@ -15,13 +16,40 @@ export const AminContacts = () => {
         }
       });
       const data = await response.json();
-      setUsers(data);
-      console.log("Response: ", data);
+      if(response.ok){
+        setUsers(data);
+        if(data.length !== 0){
+          setContact(data.length);
+        }else{
+          setContact(0);
+        }
+      }
+      else{
+        toast.error("Failed to fetch contacts!");
+      }
     } catch (error) {
       toast.error(error);
     }
   };
- 
+ const deleteContactById = async (id)=> {
+  try {
+    const response = await fetch(`${API}/api/admin/contacts/delete/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: authorizationToken,
+      }
+    })
+    if(response.ok){
+      getAllUsersData();
+      toast.success("Contact deleted successfully!");
+    } else {
+      toast.error("Failed to delete contact");
+    }
+
+  } catch (error) {
+    toast.error(error);
+  }
+ }
   useEffect(() => {
     getAllUsersData();
   }, []);
@@ -38,19 +66,27 @@ export const AminContacts = () => {
               <tr>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Message</th>
+                <th colSpan="2">Message</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {users.map((curUser, index) => {
-                return (
+            {contact === 0 ? (
+                <tr>
+                  <td colSpan="4" style={{ textAlign: "center" }}>
+                    No Message Found!
+                  </td>
+                </tr>
+              ) : (
+                users.map((curUser, index) => (
                   <tr key={index}>
                     <td>{curUser.username}</td>
                     <td>{curUser.email}</td>
-                    <td>{curUser.message}</td>
+                    <td colSpan="2">{curUser.message}</td>
+                    <td><button className="btn btn-danger" onClick={()=> deleteContactById(curUser._id)}>Delete</button></td>
                   </tr>
-                );
-              })}
+                ))
+              )}
             </tbody>
           </table>
         </div>

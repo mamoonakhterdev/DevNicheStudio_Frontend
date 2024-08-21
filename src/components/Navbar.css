@@ -5,9 +5,22 @@
     padding: 4.2rem 4.2rem;
     display: flex;
     justify-content: space-between;
+    
 }
 
 ul{
     display: flex;
     gap: 3.2rem;
+}
+
+@media (max-width: 768px) {
+    .container{
+        text-align: center;
+        justify-content: center;
+    }
+    ul {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 }

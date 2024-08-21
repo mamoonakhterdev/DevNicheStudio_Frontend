@@ -9,7 +9,7 @@ export const Navbar = ({ company_name }) => {
   
   return (
     <header>
-      <div className="container">
+      <div className="container grid grid-two-cols">
         <div className="logo-brand">
           <NavLink to="/">{company_name}</NavLink>
         </div>

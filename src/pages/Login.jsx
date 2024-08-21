@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
 import { toast } from "react-toastify";
 export default function Login() {
-  const URL = 'http://localhost:5000/api/auth/login';
+  const {API} = useAuth();
+  console.log(API);
+  const URL = `${API}/api/auth/login`;
   const navigate = useNavigate();
   const {storeTokenInLS} = useAuth();
   const [user, setUser] = useState({
@@ -24,7 +26,6 @@ export default function Login() {
   }
   const handleSubmit = async (e)=> {
     e.preventDefault();
-    console.log(user);
     try {
       const response = await fetch(URL, {
         method:"POST",
@@ -33,10 +34,8 @@ export default function Login() {
         },
         body:JSON.stringify(user),
       })
-      console.log("login Response: ", response);
       const res_data = await response.json();
       if(response.ok){
-        console.log("Response from server: ", res_data);
         // stored the token in localhost
         storeTokenInLS(res_data.token);
         toast.success("Login Successful")
@@ -47,8 +46,7 @@ export default function Login() {
 
       }
     } catch (error) {
-      console.log(error);
-      toast.error("Internal Error!");
+      toast.error("Internal Error!", error);
     }
   }
   return (
