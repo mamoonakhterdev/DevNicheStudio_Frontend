@@ -15,7 +15,7 @@ export default function Home ({ company_name }) {
               <p>We are the Best IT Company</p>
               <h1>Welcome to {company_name}</h1>
               <p>
-              Are you ready to take your business to the next level with  cutting-edge IT solutions? Look no further! At {company_name}, we specialize in providing inovative IT services and solutions tailored to meet your unique needs.
+              Are you ready to take your business to the next level with  cutting-edge IT solutions? Look no further! At {company_name}, we specialize in providing innovative IT services and solutions tailored to meet your unique needs.
               </p>
 
               <div className="btn btn-group">
