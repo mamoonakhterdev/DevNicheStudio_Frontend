@@ -21,7 +21,7 @@ export const AdminUsers = () => {
   };
   const deleteUser = async (id) => {
     try {
-      const response = await fetch(`${API}/api/admin/users/${id}`,
+      const response = await fetch(`${API}/api/admin/users/delete/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -29,14 +29,18 @@ export const AdminUsers = () => {
           },
         });
   
-        const data = response.json();
-        toast.success(data);
- 
+        const data = await response.json();
+        console.log(data);
         if(response.ok){
+
           getAllUsersData();
+          toast.success("Deleted Successfully");
+        }else{
+          toast.error("Failed to delete user");
         }
     } catch (error) {
-      toast.error(error);
+      toast.error("Internal Error!");
+      console.log(error);
     }
   }
   useEffect(() => {
@@ -44,7 +48,7 @@ export const AdminUsers = () => {
   }, []);
   return (
     <>
-      <section className="admin-users-section">
+      <section className="admin-users-section setHeight">
         <div className="container">
           <h1>Admin Users Data</h1>
         </div>

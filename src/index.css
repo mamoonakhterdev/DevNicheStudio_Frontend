@@ -664,3 +664,7 @@ td:last-child button:hover {
   height: 40vw;
   text-align: center;
 }
+
+.setHeight{
+  margin-bottom: 5vw;
+}

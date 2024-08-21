@@ -65,7 +65,7 @@ export const AdminUpdate = () => {
         }
     }
   return (
-    <div>
+    <div className="setHeight">
       <section>
         <main>
           <div className="section-registration">

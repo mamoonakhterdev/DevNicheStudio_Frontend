@@ -50,7 +50,7 @@ export default function Login() {
     }
   }
   return (
-    <div>
+    <div className="setHeight">
       <section>
         <main>
           <div className="section-registration">

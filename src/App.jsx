@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Login from "./pages/Login";
@@ -31,6 +31,7 @@ const App = ()=>{
 
           {/* Nested Route and Admin Route */}
           <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<Navigate to="users" />} />
             <Route path="users" element={<AdminUsers />} />
             <Route path="contacts" element={<AdminContacts />} />
             <Route path="users/:id/edit" element={<AdminUpdate />} />

@@ -55,7 +55,7 @@ export const AdminContacts = () => {
   }, []);
   return (
     <>
-      <section className="admin-users-section">
+      <section className="admin-users-section setHeight">
         <div className="container">
           <h1>Users Contacts</h1>
         </div>

@@ -64,7 +64,7 @@ export default function Register() {
   }
 
   return (
-    <div>
+    <div className="setHeight">
       <section>
         <main>
           <div className="section-registration">
