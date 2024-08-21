@@ -1,15 +1,17 @@
 import { useState } from "react";
 import contactimage from "../assets/images/support.png";
 import { useAuth } from "../store/auth";
+import { toast } from "react-toastify";
 
+const defaultContactFormData = {
+  username: "",
+  email: "",
+  message: "",
+}
 export default function Contact() {
-  const [contact, setContact] = useState({
-    username: "",
-    email: "",
-    message: "",
-  })
+  const [contact, setContact] = useState(defaultContactFormData)
   const {user} = useAuth();
-
+  
   const [userData, setUserData] = useState(true);
 
   if(userData && user){
@@ -36,9 +38,27 @@ export default function Contact() {
     }))
   }
 
-  const handleSubmit = (e)=>{
+  const handleSubmit = async (e)=>{
     e.preventDefault();
-    console.log(contact)
+    try {
+      const response = await fetch('http://localhost:5000/api/form/contact', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(contact),
+      });
+
+      if(response.ok){
+        setContact(defaultContactFormData);
+        const data = await response.json();
+        console.log(data);
+        toast.success('Message sent successfully');
+      }
+
+    } catch (error) {
+      toast.error('Message not sent', error);
+    }
   }
   return (
     <>

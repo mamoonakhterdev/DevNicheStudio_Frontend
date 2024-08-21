@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 export const AuthContext = createContext();
 
@@ -7,12 +8,13 @@ export const AuthProvider = ({children}) => {
 
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [user, setUser] = useState("");
+    const [services, setServices] = useState([]);
+    const authorizationToken = `Bearer ${token}`;
     const storeTokenInLS = (serverToken) => {
+        setToken(serverToken);
         return localStorage.setItem('token', serverToken);
     }
-
     let isLoggedIn = !!token;
-    console.log(isLoggedIn);
     //Tackling the logout functionality
     const LogoutUser = () => {
         setToken("");
@@ -22,11 +24,10 @@ export const AuthProvider = ({children}) => {
     // JWT Authentication - to get the currently loggedIn user data
     const userAuthentication = async ()=>{
         try {
-            console.log(token)
             const response = await fetch('http://localhost:5000/api/auth/user', {
                 method: "GET",
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: authorizationToken,
                 }
             });
             if(response.ok){
@@ -34,19 +35,36 @@ export const AuthProvider = ({children}) => {
                 setUser(data.userData);
             }
             else{
-                console.log("Internal Error: ");
+                toast.error("User not login");
             }
         } catch (error) {
-            console.error("Error fetching the user data: ", error)
+            toast.error("Error fetching the user data: ", error)
         }
     }
+
+    // to fetch the services data from database
+    const getServices = async ()=>{
+        try {
+            const response = await fetch('http://localhost:5000/api/data/service', {
+                method: "GET",
+            })
+            if(response.ok){
+                const data = await response.json();
+                setServices(data.msg);
+            }
+        } catch (error) {
+            toast.error(`Server Error: ${error}`)
+        }
+    }
+
     useEffect(() => {
+        getServices();
       userAuthentication();
     },[])
     
 
 
-    return <AuthContext.Provider value={{storeTokenInLS, LogoutUser, isLoggedIn, user}}>
+    return <AuthContext.Provider value={{storeTokenInLS, LogoutUser, isLoggedIn, user, services, authorizationToken}}>
         {children}
     </AuthContext.Provider>
 }

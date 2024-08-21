@@ -2,6 +2,7 @@ import { useState } from "react"
 import loginimage from "../assets/images/login.png";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
+import { toast } from "react-toastify";
 export default function Login() {
   const URL = 'http://localhost:5000/api/auth/login';
   const navigate = useNavigate();
@@ -33,20 +34,21 @@ export default function Login() {
         body:JSON.stringify(user),
       })
       console.log("login Response: ", response);
+      const res_data = await response.json();
       if(response.ok){
-        const res_data = await response.json();
         console.log("Response from server: ", res_data);
         // stored the token in localhost
         storeTokenInLS(res_data.token);
-        alert("Login Successful")
+        toast.success("Login Successful")
         setUser({email: "", password: ""});
         navigate("/");
       }else{
-        console.log("Invalid Credentials");
-        alert("invalid credientials");
+        toast.error(res_data.extraDetails ? res_data.extraDetails: res_data.message);
+
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
+      toast.error("Internal Error!");
     }
   }
   return (

@@ -2,6 +2,7 @@ import { useState } from "react"
 import registerimage from "../assets/images/register.png";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/auth";
+import { toast } from "react-toastify";
 export default function Register() {
 
   const [user, setUser] = useState({
@@ -38,11 +39,9 @@ export default function Register() {
         body: JSON.stringify(user),
       });
   
-      console.log("Success Response: ",response);
+      const res_data = await response.json();
 
       if(response.ok){
-        const res_data = await response.json();
-        console.log("Response from server: ", res_data);
         // stored the token in localhost
         storeTokenInLS(res_data.token);
         setUser({
@@ -51,11 +50,16 @@ export default function Register() {
           phone: "",
           password: "",
         })
-        navigate('/login');
+        toast.success("Registration Successfully!")
+        navigate('/');
+      }else{
+        toast.error(res_data.extraDetails ? res_data.extraDetails: res_data.message);
+        
+        
       }
 
     } catch (error) {
-      console.log("Register: ",error);
+      toast.error(error.message);
     }
    
   }

@@ -9,6 +9,10 @@ import { Navbar } from "./components/Navbar";
 import Footer from "./components/Footer";
 import { PageNotFound } from "./pages/PageNotFound";
 import {Logout} from "./pages/Logout";
+import {AdminLayout} from "./components/layouts/Admin-Layout";
+import {AdminContacts} from "./pages/Admin-Contacts";
+import {AdminUsers} from "./pages/Admin-Users";
+import { AdminUpdate } from "./pages/Admin-Update";
 const App = ()=>{
   const company_name = "Sandhu Tech";
   return (
@@ -24,6 +28,13 @@ const App = ()=>{
           <Route path="/register" element={<Register />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="*" element={<PageNotFound />} />
+
+          {/* Nested Route and Admin Route */}
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route path="users" element={<AdminUsers />} />
+            <Route path="contacts" element={<AdminContacts />} />
+            <Route path="users/:id/edit" element={<AdminUpdate />} />
+          </Route>
         </Routes>
         <Footer company_name={company_name} />
       </BrowserRouter>

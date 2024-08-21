@@ -4,6 +4,9 @@ import { useAuth } from "../store/auth";
 // eslint-disable-next-line react/prop-types
 export const Navbar = ({ company_name }) => {
   const { isLoggedIn } = useAuth();
+
+ 
+  
   return (
     <header>
       <div className="container">

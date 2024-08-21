@@ -53,6 +53,12 @@ li {
   list-style: none;
 }
 
+/* ? React Toastify  */
+.toastBody {
+  font-family: "Atlas Grotesk Web", Arial, Helvetica, sans-serif;
+  font-size: 1.7rem;
+}
+
 /* ? Responsive Design */
 @media (max-width: 768px) {
   html {
@@ -493,6 +499,110 @@ a:active{
         margin: 1.2rem 0 2.4rem 0;
       }
     }
+  }
+}
+
+
+/** -----------------------
+** Admin Table CSS
+** -------------------------  */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+thead {
+  background-color: #333;
+  color: #fff;
+}
+
+th, td {
+  padding: 1rem;
+  text-align: left;
+  font-size: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  font-weight: bold;
+  text-transform: uppercase;
+
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+td {
+  font-size: 1.5rem;
+  color: #000;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+td:nth-last-child(2) {
+  text-align: left;
+  cursor: pointer;
+  color: #007bff;
+  text-decoration: underline;
+}
+
+td:nth-last-child(2):hover {
+  color: #0056b3;
+}
+
+td:last-child button {
+  text-align: left;
+  cursor: pointer;
+  background-color: #ff4d4d; /* Background color for Delete button */
+  color: #fff; /* Text color */
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+td:last-child button:hover {
+  background-color: #e60000;
+}
+
+@media (max-width: 768px) {
+  th, td {
+    padding: 0.75rem;
+  }
+
+  th, td {
+    font-size: 0.875rem;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  th, td {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  table {
+    font-size: 0.75rem;
+  }
+
+  td:last-child, td:nth-last-child(2) {
+    font-size: 0.75rem;
   }
 }
 
