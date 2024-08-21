@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import design_image from "../assets/images/design.png";
 import home_image from "../assets/images/home.png";
 import { Analytics } from "../components/Analytics";
@@ -18,12 +19,12 @@ export default function Home ({ company_name }) {
               </p>
 
               <div className="btn btn-group">
-                <a href="/contact">
+                <Link to="/contact">
                   <button className="btn">Connect Now</button>
-                </a>
-                <a href="/service">
+                </Link>
+                <Link to="/service">
                   <button className="btn secondary-btn">Learn More</button>
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -56,12 +57,12 @@ export default function Home ({ company_name }) {
               </p>
 
               <div className="btn btn-group">
-                <a href="/contact">
+                <Link to="/contact">
                   <button className="btn">Connect Now</button>
-                </a>
-                <a href="/service">
+                </Link>
+                <Link to="/service">
                   <button className="btn secondary-btn">Learn More</button>
-                </a>
+                </Link>
               </div>
             </div>        
           </div>

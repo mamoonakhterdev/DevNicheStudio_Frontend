@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useAuth } from "../store/auth";
 import Modal from 'react-modal';
+import { BallTriangle } from "react-loader-spinner";
 
 const customStyles = {
   content: {
@@ -17,10 +18,9 @@ const customStyles = {
 
 export const AdminContacts = () => {
   const [users, setUsers] = useState([]);
-  const [contact, setContact] = useState(0);
-  const { authorizationToken, API } = useAuth();
+  const [contact, setContact] = useState(null);
+  const { authorizationToken, API, isLoading } = useAuth();
   const [modaldata, setModalData] = useState(null);
-
   const getAllUsersData = async () => {
     try {
       const response = await fetch(`${API}/api/admin/contacts`, {
@@ -92,9 +92,20 @@ export const AdminContacts = () => {
               </tr>
             </thead>
             <tbody>
-              {contact === 0 ? (
+              {isLoading ? (
+                <tr style={{display: 'flex', justifyContent: 'center'}}>
+                  <td colSpan="5"  >
+                    <BallTriangle 
+                      height={100}
+                      width={100}
+                      color="#4fa94d"
+                      ariaLabel="ball-triangle-loading"
+                    /> 
+                  </td>
+                </tr>
+              ) : contact === 0 ? (
                 <tr>
-                  <td colSpan="4" style={{ textAlign: "center" }}>
+                  <td colSpan="5" style={{ textAlign: "center" }}>
                     No Message Found!
                   </td>
                 </tr>
